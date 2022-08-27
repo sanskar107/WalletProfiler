@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import getTransactionData from "../CovalentAPI/CovalentAPIFunctions";
+import getTransactionDataWrapper from "../CovalentAPI/CovalentAPIFunctions";
 import fetchData from "../FetchData/FetchData";
 
 interface CardProps {}
@@ -28,7 +28,11 @@ const Card: FC<CardProps> = (props) => {
             className="btn btn-outline-success"
             onClick={() => {
               fetchData(value, async (response: any) => {
-                const results = await getTransactionData(response);
+                const results = await getTransactionDataWrapper(
+                  response,
+                  "matic",
+                  137
+                );
                 console.log(results);
               });
             }}

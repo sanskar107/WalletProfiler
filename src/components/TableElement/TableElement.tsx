@@ -4,9 +4,12 @@ interface TableProps {
   key: number;
   addr: string;
   balance: number;
-  lifetimeValue: number;
-  tlv: number;
-  risks: string;
+  defiScore: number;
+  numberOfTrades: number;
+  totalStakes: number;
+  totalLp: string;
+  numberOfNFTs: number;
+  totalNFTUSD: number;
   labels: Array<string>;
 }
 
@@ -15,9 +18,12 @@ const TableElement: FC<TableProps> = (props) => {
     <tr>
       <th scope="row">{props.addr}</th>
       <td>{props.balance}</td>
-      <td>{props.lifetimeValue}</td>
-      <td>{props.tlv}</td>
-      <td>{props.risks}</td>
+      <td>{props.defiScore}</td>
+      <td>{props.numberOfTrades}</td>
+      <td>{props.totalStakes}</td>
+      <td>{props.totalLp}</td>
+      <td>{props.numberOfNFTs}</td>
+      <td>{props.totalNFTUSD}</td>
       <td>{props.labels}</td>
     </tr>
   );

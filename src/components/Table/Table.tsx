@@ -34,9 +34,12 @@ const Table: FC<TableProps> = (props) => {
           >
             Total Balance
           </th>
-          <th scope="col">Lifetime Value on your App</th>
-          <th scope="col">Total Lifetime Value</th>
-          <th scope="col">Risks</th>
+          <th scope="col">Defi Score</th>
+          <th scope="col">Total trades</th>
+          <th scope="col">Total Stakes</th>
+          <th scope="col">Total LP</th>
+          <th scope="col">Number of NFTs</th>
+          <th scope="col">Total NFT Value</th>
           <th scope="col" className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
@@ -120,11 +123,14 @@ const Table: FC<TableProps> = (props) => {
             return (
               <TableElement
                 key={ele.id}
-                addr={ele.walletAddress}
-                balance={ele.totalBalance}
-                lifetimeValue={ele.lifeTimeValueApp}
-                tlv={ele.tlv}
-                risks={ele.risks}
+                addr={ele.address}
+                balance={ele.totalAmountInUSD}
+                defiScore={ele.defiScore}
+                numberOfTrades={ele.numberOfTrades}
+                totalStakes={ele.numberOfStakes}
+                totalLp={ele.totalLp}
+                numberOfNFTs={ele.numberOfNFTs}
+                totalNFTUSD={ele.totalNFTUSD}
                 labels={ele.labels}
               />
             );

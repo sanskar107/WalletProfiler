@@ -1,6 +1,6 @@
 let TableData = [];
 
-const getTransactionData = async (address) => {
+const getTransactionData = async (address, chain, chainId) => {
   const query = new URLSearchParams({
     page: "1",
     pageSize: "50",
@@ -11,15 +11,17 @@ const getTransactionData = async (address) => {
     auth_key: "4lCUepYmqhannplibgDy81oV2DjNaUuSaUmITEQK",
   }).toString();
 
-  const chain = "ethereum";
+  // const chain = "ethereum";
   // const address = '0x345d8e3a1f62ee6b1d483890976fd66168e390f2';
   const resp = await fetch(
     `https://api.unmarshal.com/v1/${chain}/address/${address}/transactions?${query}`,
     { method: "GET" }
   );
 
+  if (!resp) return null;
+
   const data = await resp.json();
-  console.log(data);
+  // console.log(data);
   let result = [{}];
   let totalAmountStaked = 0;
   let totalAmountTraded = 0;
@@ -61,22 +63,28 @@ const getTransactionData = async (address) => {
     `https://api.unmarshal.com/v2/protocols/${protocols}/address/${address}/positions?${lpQuery}`,
     { method: "GET" }
   );
+
+  if (!response) return null;
+
   const lpData = await response.json();
-  console.log(lpData);
+  // console.log(lpData);
   let LPPools = [];
   let totalLPAmountProvided = 0;
-  for (let i = 0; i < lpData.positions.length; i++) {
-    let position = lpData.positions[i];
-    totalLPAmountProvided = totalLPAmountProvided + position.pool_token.quote;
-    if (LPPools.indexOf(position.pool_token.contract_name) === -1) {
-      LPPools.push(position.pool_token.contract_name);
+  if (!lpData) {
+    for (let i = 0; i < lpData.positions.length; i++) {
+      let position = lpData.positions[i];
+      totalLPAmountProvided = totalLPAmountProvided + position.pool_token.quote;
+      if (LPPools.indexOf(position.pool_token.contract_name) === -1) {
+        LPPools.push(position.pool_token.contract_name);
+      }
     }
   }
 
   let totalNFTUSD = 0;
-  let covalentUrl =
-    "https://api.covalenthq.com/v1/1/address/0x1532cf8977d51de6a609015a23365cdb25064bc1/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_bcac8aebbd3646009645c9209ce";
+  let covalentUrl = `https://api.covalenthq.com/v1/${chainId}/address/${address}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_bcac8aebbd3646009645c9209ce`;
   const covalentResponse = await fetch(covalentUrl);
+
+  if (!covalentResponse) return null;
   const covalentData = await covalentResponse.json();
   let myItems = covalentData.data.items;
   let allAccountBalanceInUSD = 0;
@@ -101,6 +109,8 @@ const getTransactionData = async (address) => {
           "/lowestprice?chain=eth&marketplace=opensea",
         options
       );
+
+      if (!nftPriceResponse) return null;
       const nftPriceData = await nftPriceResponse.json();
       if (!nftPriceData) {
         continue;
@@ -133,8 +143,19 @@ const getTransactionData = async (address) => {
     totalNFTUSD: totalNFTUSD,
   };
 
+  console.log(result);
   return result;
+  // console.log("Result: ", result);
 };
 
-export default getTransactionData;
+const getTransactionDataWrapper = (addressArray, chain, chainId) => {
+  for (let i = 0; i < 10; i++) {
+    let result = getTransactionData(addressArray[i], chain, chainId);
+    if (!result) continue;
+    result.id = i;
+    TableData.push(result);
+  }
+};
+
+export default getTransactionDataWrapper;
 export { TableData };
