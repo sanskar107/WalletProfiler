@@ -11,7 +11,8 @@ action = "txlist"
 contract_address_uniswap = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984".lower()  # uniswap
 contract_address_sushi = "0x6B3595068778DD592e39A122f4f5a5cF09C90fE2".lower()  # sushi
 contract_address_pancake = "0xCb039d11Fd38167de19536453a105271A5e44392".lower()  # pancake
-contract_address = "0x6c28AeF8977c9B773996d0e8376d2EE379446F2f"  # quick swap
+contract_address_quick = "0x6c28AeF8977c9B773996d0e8376d2EE379446F2f"  # quick swap
+contract_address = "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"  # aave
 
 startblock = 10000000
 endblock = 15422121
@@ -38,7 +39,7 @@ wallets = list(set(wallets))
 if contract_address in wallets:
     wallets.remove(contract_address)
 
-f = open("wallets_quick.txt", 'w')
+f = open("wallets_aave.txt", 'w')
 for w in wallets:
     f.write(w)
     f.write('\n')
