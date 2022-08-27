@@ -48,17 +48,50 @@ const Table: FC<TableProps> = (props) => {
             </a>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("NFT");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   NFT
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("Stake Hodler");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   Stake Hodler
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("Defi");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   Defi
                 </a>
               </li>

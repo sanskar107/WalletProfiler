@@ -6,7 +6,7 @@ let profilerData = [
     lifeTimeValueApp: 24353,
     tlv: 536025,
     risks: "None",
-    labels: ["Staker", "NFT Holder"],
+    labels: ["Stake Hodler", "NFT"],
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ let profilerData = [
     lifeTimeValueApp: 24353,
     tlv: 536025,
     risks: "None",
-    labels: ["Staker"],
+    labels: ["Stake Hodler"],
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ let profilerData = [
     lifeTimeValueApp: 24353,
     tlv: 536025,
     risks: "None",
-    labels: ["NFT Holder"],
+    labels: ["NFT"],
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ let profilerData = [
     lifeTimeValueApp: 24353,
     tlv: 536025,
     risks: "None",
-    labels: ["Defi", "NFT Holder"],
+    labels: ["Defi", "NFT"],
   },
 ];
 
