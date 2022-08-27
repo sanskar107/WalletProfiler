@@ -69,11 +69,6 @@ const NavBar: FC<NavbarProps> = (props) => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#" aria-disabled="true">
-                Disabled
-              </a>
-            </li>
           </ul>
           <div className="">
             <button
