@@ -17,7 +17,7 @@ const Table: FC<TableProps> = (props) => {
             role="button"
             scope="col"
             onClick={() => {
-              Data.sort(function (a, b) {
+              data.sort(function (a, b) {
                 let keyA = a.totalBalance,
                   keyB = b.totalBalance;
                 // Compare the 2 dates
@@ -25,7 +25,7 @@ const Table: FC<TableProps> = (props) => {
                 if (keyA > keyB) return 1;
                 return 0;
               });
-              setData(Data);
+              setData(data);
               setPrevState(!prevState);
               setNewState(!newState);
             }}
@@ -48,18 +48,64 @@ const Table: FC<TableProps> = (props) => {
             </a>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("NFT");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   NFT
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("Stake Hodler");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   Stake Hodler
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = Data.filter((ele) => {
+                      return ele.labels.includes("Defi");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
                   Defi
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    setData(Data);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
+                  All
                 </a>
               </li>
             </ul>
