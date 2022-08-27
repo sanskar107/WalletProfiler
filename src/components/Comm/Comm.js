@@ -14,7 +14,29 @@ async function sendNotifBroadcast(sdk) {
     "Longer Message",
     1,
     "https://google.com",
-    "https://i.postimg.cc/JzNpgJcx/image.png",
+    "https://i.postimg.cc/zGVRsSF1/image.png",
+    null
+  );
+  return response;
+}
+
+async function sendNotifSubset(sdk, address, header, message) {
+  let addr = "";
+  for(let i = 0; i < address.length; i++) {
+    if (i == 0)
+      addr = address[i];
+    else
+      addr = addr + "," + address[i];
+  }
+  const response = await sdk.sendNotification(
+    addr,
+    header,
+    message,
+    header,
+    message,
+    4,
+    "https://google.com",
+    "https://i.postimg.cc/zGVRsSF1/image.png",
     null
   );
   return response;
@@ -29,11 +51,19 @@ async function sendNotifTarget(sdk) {
     "Longer Message",
     3,
     "https://google.com",
-    "https://i.postimg.cc/JzNpgJcx/image.png",
+    "https://i.postimg.cc/zGVRsSF1/image.png",
     null
   );
   return response;
 }
+
+const sendNotification = async (address, header, message) => {
+  const CHANNEL_PK = process.env.REACT_APP_PRIVATE_KEY;
+  const epnsSdk = new EpnsSDK(CHANNEL_PK);
+
+  await sendNotifSubset(epnsSdk, address, header, message);
+
+};
 
 
 const comm = () => {
@@ -52,42 +82,7 @@ const comm = () => {
   sendNotifBroadcast(epnsSdk).then(response => {
     console.log("response notif = ", response);
   });
+};
 
 
-  // const allSubscribers = epnsSdk.getSubscribers()
- 
-  // const allSubscribers = await epnsSdk.getSubscribers();
-  // const allSubscribers = getsubs(epnsSdk);
-  // console.log("Subscribers = ", response);
-
-  // const response = await epnsSdk.sendNotification(
-  //   recipient=0x50167ae49a1489DfE06697EA8bac6a3E8C79F2C6,
-  //   pushNotificationTitle="Test Notif Header",
-  //   pushNotificationMessage="Test Notif Message",
-  //   notificationTitle="Longer Title",
-  //   notificationMessage="Longer Message",
-  //   notificationType=1,
-  //   cta="https://google.com",
-  //   img="https://postimg.cc/215dL1tL",
-  //   simulate=null,
-  // );
-  // console.log("response = ", response);
-
-}
-
-
-// const fetchData = (url, callback) => {
-//   fetch(url, {
-//     method: "GET",
-//   })
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((response) => {
-//       console.log(response);
-//       console.log(response.data[0]);
-//       callback(response);
-//     });
-// };
-
-export default comm;
+export default sendNotification;
