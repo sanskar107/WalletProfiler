@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import Data from "../Data/Data";
 import TableElement from "../TableElement/TableElement";
+import { fetchedData } from "../Card/Card";
 
 interface TableProps {}
 
@@ -25,6 +26,7 @@ const Table: FC<TableProps> = (props) => {
                 if (keyA > keyB) return 1;
                 return 0;
               });
+              console.log(fetchedData);
               setData(data);
               setPrevState(!prevState);
               setNewState(!newState);

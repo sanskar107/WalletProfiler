@@ -8,7 +8,7 @@ const fetchData = (url, callback) => {
     .then((response) => {
       console.log(response);
       console.log(response.data[0]);
-      callback(response);
+      callback(response.data[0]);
     });
 };
 

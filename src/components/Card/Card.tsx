@@ -1,11 +1,13 @@
 import { FC, useState } from "react";
+import getTransactionData from "../CovalentAPI/CovalentAPIFunctions";
 import fetchData from "../FetchData/FetchData";
 
 interface CardProps {}
 
+let fetchedData: any;
+
 const Card: FC<CardProps> = (props) => {
   const [value, setValue] = useState("");
-  const [inputData, setInputData] = useState();
   return (
     <div className="card w-auto p-5" style={{ width: "18rem" }}>
       <div className="card-body">
@@ -25,7 +27,10 @@ const Card: FC<CardProps> = (props) => {
             type="button"
             className="btn btn-outline-success"
             onClick={() => {
-              fetchData(value, (response: any) => setInputData(response));
+              fetchData(value, async (response: any) => {
+                const results = await getTransactionData(response);
+                console.log(results);
+              });
             }}
           >
             Load
@@ -37,3 +42,4 @@ const Card: FC<CardProps> = (props) => {
 };
 
 export default Card;
+export { fetchedData };
