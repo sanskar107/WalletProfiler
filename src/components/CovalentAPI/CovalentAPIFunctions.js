@@ -148,13 +148,15 @@ const getTransactionData = async (address, chain, chainId) => {
   // console.log("Result: ", result);
 };
 
-const getTransactionDataWrapper = (addressArray, chain, chainId) => {
-  for (let i = 0; i < 10; i++) {
-    let result = getTransactionData(addressArray[i], chain, chainId);
+const getTransactionDataWrapper = async (addressArray, chain, chainId) => {
+  for (let i = 0; i < 1; i++) {
+    let result = await getTransactionData(addressArray[i], chain, chainId);
     if (!result) continue;
-    result.id = i;
+    result[0].id = i;
     TableData.push(result);
   }
+
+  return TableData;
 };
 
 export default getTransactionDataWrapper;
