@@ -32,16 +32,18 @@ const Table: FC<TableProps> = (props) => {
             role="button"
             scope="col"
             onClick={() => {
-              data.sort(function (a, b) {
-                let keyA = a.balance,
-                  keyB = b.balance;
-                // Compare the 2 dates
-                if (keyA < keyB) return -1;
-                if (keyA > keyB) return 1;
-                return 0;
-              });
+              setData(
+                data.sort(function (a, b) {
+                  let keyA = a.balance,
+                    keyB = b.balance;
+                  // Compare the 2 dates
+                  if (keyA < keyB) return -1;
+                  if (keyA > keyB) return 1;
+                  return 0;
+                })
+              );
               console.log(fetchedData);
-              setData(data);
+              // setData(data);
               setPrevState(!prevState);
               setNewState(!newState);
             }}
@@ -80,7 +82,7 @@ const Table: FC<TableProps> = (props) => {
                     setNewState(!newState);
                   }}
                 >
-                  NFT
+                  NFT Hodler
                 </a>
               </li>
               <li>
@@ -96,7 +98,7 @@ const Table: FC<TableProps> = (props) => {
                     setNewState(!newState);
                   }}
                 >
-                  Stake Hodler
+                  Staker
                 </a>
               </li>
               <li>
@@ -105,14 +107,30 @@ const Table: FC<TableProps> = (props) => {
                   href="#"
                   onClick={() => {
                     let temp = data.filter((ele) => {
-                      return ele.labels.includes("Defi");
+                      return ele.labels.includes("Trader");
                     });
                     setData(temp);
                     setPrevState(!prevState);
                     setNewState(!newState);
                   }}
                 >
-                  Defi
+                  Trader
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => {
+                    let temp = data.filter((ele) => {
+                      return ele.labels.includes("LP Provider");
+                    });
+                    setData(temp);
+                    setPrevState(!prevState);
+                    setNewState(!newState);
+                  }}
+                >
+                  LP
                 </a>
               </li>
               <li>

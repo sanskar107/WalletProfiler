@@ -47,12 +47,17 @@ const getTransactionData = async (address, chain, chainId) => {
   let numberOfLPPositions = 0;
   let stakingPlatforms = ["Aave"];
   let isLPProvider = false;
-  let numberOfTransactions =
-    typeof data.total_txns === "undefined" ? 0 : Number(data.total_txns);
+  let numberOfTransactions = 0;
+
+  if (data.transactions.length != 0) {
+    numberOfTransactions = data.total_txs;
+  } else {
+    numberOfTransactions = 0;
+  }
 
   if (!data) return result[0];
 
-  for (let i = 0, j = 0; i < data.total_txs; i++) {
+  for (let i = 0, j = 0; i < data.transactions.length; i++) {
     const transactionData = data.transactions[i];
     if (!transactionData) {
       continue;
