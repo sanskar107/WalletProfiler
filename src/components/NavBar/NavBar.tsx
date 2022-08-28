@@ -38,11 +38,7 @@ const NavBar: FC<NavbarProps> = (props) => {
                   console.log("Await NExt");
                   await sendNotification(
                     [
-                      "0x26e28866a88b41b44ee08b3bafdd3a147191f4b1",
-                      "0x81dc6992b3170817f2a67d96d302f911bdb2cc33",
-                      "0x1162a83a65f4b4f58698245236fddaf55479cf61",
-                      "0xb600fd470d7422231a2308f6807e1e467c4145e4",
-                      "0x9277ba9fc17E8eA062b3Da52497f52e98792f3c6",
+                      "0x26e28866a88b41b44ee08b3bafdd3a147191f4b1", "0x81dc6992b3170817f2a67d96d302f911bdb2cc33", "0x1162a83a65f4b4f58698245236fddaf55479cf61", "0xb600fd470d7422231a2308f6807e1e467c4145e4", "0x9277ba9fc17E8eA062b3Da52497f52e98792f3c6"
                     ],
                     "TITLE: You are Lucky Winner",
                     "MESSAGE: You have been chosen by us for your first 100 transactions"
