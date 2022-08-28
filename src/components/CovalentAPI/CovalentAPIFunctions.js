@@ -128,19 +128,14 @@ const getTransactionData = async (address, chain, chainId) => {
   // Return result
   result[0] = {
     address: address,
-    labels: labels,
-    isTrader: isTrader,
-    tradingPlatforms: tradingPlatforms,
-    isStaker: isStaker,
     totalAmountInUSD: allAccountBalanceInUSD,
-    stakingPlatforms: stakingPlatforms,
-    totalAmountStaked: totalAmountStaked,
-    totalAmountTraded: totalAmountTraded,
-    isLPProvider: isLPProvider,
-    LPPools: LPPools,
-    totalLPAmountProvided: totalLPAmountProvided,
-    NFTs: NFTs,
-    totalNFTUSD: totalNFTUSD,
+    defiScore: allAccountBalanceInUSD,
+    totalTrades: allAccountBalanceInUSD, // Change at the end
+    totalStakes: allAccountBalanceInUSD, // Change at the end
+    totalLP: totalLPAmountProvided,
+    numberOfNFT: allAccountBalanceInUSD,
+    totalNFTValue: allAccountBalanceInUSD,
+    labels: labels,
   };
 
   console.log(result);

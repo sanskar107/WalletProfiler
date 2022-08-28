@@ -8,7 +8,20 @@ interface TableProps {}
 const Table: FC<TableProps> = (props) => {
   const [newState, setNewState] = useState(true);
   const [prevState, setPrevState] = useState(false);
-  const [data, setData] = useState(Data);
+  const [data, setData] = useState([
+    {
+      id: 0,
+      address: "",
+      totalAmountInUSD: 0,
+      defiScore: 0,
+      totalTrades: 0,
+      totalStakes: 0,
+      totalLP: 0,
+      numberOfNFT: 0,
+      totalNFTValue: 0,
+      labels: [""],
+    },
+  ]);
   return (
     <table className="table">
       <thead>
@@ -19,8 +32,8 @@ const Table: FC<TableProps> = (props) => {
             scope="col"
             onClick={() => {
               data.sort(function (a, b) {
-                let keyA = a.totalBalance,
-                  keyB = b.totalBalance;
+                let keyA = a.totalAmountInUSD,
+                  keyB = b.totalAmountInUSD;
                 // Compare the 2 dates
                 if (keyA < keyB) return -1;
                 if (keyA > keyB) return 1;
@@ -57,7 +70,7 @@ const Table: FC<TableProps> = (props) => {
                   className="dropdown-item"
                   href="#"
                   onClick={() => {
-                    let temp = Data.filter((ele) => {
+                    let temp = data.filter((ele) => {
                       return ele.labels.includes("NFT");
                     });
                     setData(temp);
@@ -73,7 +86,7 @@ const Table: FC<TableProps> = (props) => {
                   className="dropdown-item"
                   href="#"
                   onClick={() => {
-                    let temp = Data.filter((ele) => {
+                    let temp = data.filter((ele) => {
                       return ele.labels.includes("Stake Hodler");
                     });
                     setData(temp);
@@ -89,7 +102,7 @@ const Table: FC<TableProps> = (props) => {
                   className="dropdown-item"
                   href="#"
                   onClick={() => {
-                    let temp = Data.filter((ele) => {
+                    let temp = data.filter((ele) => {
                       return ele.labels.includes("Defi");
                     });
                     setData(temp);
@@ -106,6 +119,7 @@ const Table: FC<TableProps> = (props) => {
                   href="#"
                   onClick={() => {
                     setData(Data);
+                    console.log("All Dropdown", Data);
                     setPrevState(!prevState);
                     setNewState(!newState);
                   }}
@@ -126,11 +140,11 @@ const Table: FC<TableProps> = (props) => {
                 addr={ele.address}
                 balance={ele.totalAmountInUSD}
                 defiScore={ele.defiScore}
-                numberOfTrades={ele.numberOfTrades}
-                totalStakes={ele.numberOfStakes}
-                totalLp={ele.totalLp}
-                numberOfNFTs={ele.numberOfNFTs}
-                totalNFTUSD={ele.totalNFTUSD}
+                numberOfTrades={ele.totalTrades}
+                totalStakes={ele.totalStakes}
+                totalLp={ele.totalLP}
+                numberOfNFTs={ele.numberOfNFT}
+                totalNFTValue={ele.totalNFTValue}
                 labels={ele.labels}
               />
             );
