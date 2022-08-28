@@ -6,22 +6,23 @@ import { fetchedData } from "../Card/Card";
 interface TableProps {}
 
 const Table: FC<TableProps> = (props) => {
-  const [newState, setNewState] = useState(true);
-  const [prevState, setPrevState] = useState(false);
   const [data, setData] = useState([
     {
       id: 0,
-      address: "",
-      totalAmountInUSD: 0,
+      address: "0x9999999999",
+      balance: 0,
       defiScore: 0,
       totalTrades: 0,
       totalStakes: 0,
       totalLP: 0,
       numberOfNFT: 0,
       totalNFTValue: 0,
-      labels: [""],
+      totalTranscation: 0,
+      labels: ["NFT", "Staker"],
     },
   ]);
+  const [newState, setNewState] = useState(true);
+  const [prevState, setPrevState] = useState(false);
   return (
     <table className="table">
       <thead>
@@ -32,8 +33,8 @@ const Table: FC<TableProps> = (props) => {
             scope="col"
             onClick={() => {
               data.sort(function (a, b) {
-                let keyA = a.totalAmountInUSD,
-                  keyB = b.totalAmountInUSD;
+                let keyA = a.balance,
+                  keyB = b.balance;
                 // Compare the 2 dates
                 if (keyA < keyB) return -1;
                 if (keyA > keyB) return 1;
@@ -53,6 +54,7 @@ const Table: FC<TableProps> = (props) => {
           <th scope="col">Total LP</th>
           <th scope="col">Number of NFTs</th>
           <th scope="col">Total NFT Value</th>
+          <th scope="col">Total Transactions</th>
           <th scope="col" className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
@@ -118,8 +120,10 @@ const Table: FC<TableProps> = (props) => {
                   className="dropdown-item"
                   href="#"
                   onClick={() => {
+                    console.log("All Dropdown Data", Data);
                     setData(Data);
-                    console.log("All Dropdown", Data);
+                    console.log("All Dropdown Data", Data);
+                    console.log("All Dropdown stateData", data);
                     setPrevState(!prevState);
                     setNewState(!newState);
                   }}
@@ -132,19 +136,20 @@ const Table: FC<TableProps> = (props) => {
         </tr>
       </thead>
       <tbody>
-        {prevState != newState &&
+        {prevState !== newState &&
           data.map((ele) => {
             return (
               <TableElement
                 key={ele.id}
                 addr={ele.address}
-                balance={ele.totalAmountInUSD}
+                balance={ele.balance}
                 defiScore={ele.defiScore}
                 numberOfTrades={ele.totalTrades}
                 totalStakes={ele.totalStakes}
                 totalLp={ele.totalLP}
                 numberOfNFTs={ele.numberOfNFT}
                 totalNFTValue={ele.totalNFTValue}
+                totalTransaction={ele.totalTranscation}
                 labels={ele.labels}
               />
             );

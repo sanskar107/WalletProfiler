@@ -10,6 +10,7 @@ interface TableProps {
   totalLp: number;
   numberOfNFTs: number;
   totalNFTValue: number;
+  totalTransaction: number;
   labels: Array<string>;
 }
 
@@ -24,6 +25,7 @@ const TableElement: FC<TableProps> = (props) => {
       <td>{props.totalLp}</td>
       <td>{props.numberOfNFTs}</td>
       <td>{props.totalNFTValue}</td>
+      <td>{props.totalTransaction}</td>
       <td>{props.labels}</td>
     </tr>
   );

@@ -29,9 +29,12 @@ const getTransactionData = async (address, chain, chainId) => {
   let isStaker = false;
   let labels = [];
   let tradingPlatforms = ["uniswap_v2"];
-  let numberOfTraders = 0;
+  let numberOfTrades = 0;
+  let numberOfStakes = 0;
+  let numberOfLPPositions = 0;
   let stakingPlatforms = ["Aave"];
   let isLPProvider = false;
+  let numberOfTransactions = data.total_txs;
 
   for (let i = 0, j = 0; i < data.total_txs; i++) {
     const transactionData = data.transactions[i];
@@ -40,14 +43,16 @@ const getTransactionData = async (address, chain, chainId) => {
     }
     if ((transactionData.type = "stake")) {
       isStaker = true;
+      numberOfStakes = numberOfStakes + 1;
       totalAmountStaked =
         totalAmountStaked + (Number(transactionData.value) / 10 ** 18) * 1500;
       if (labels.indexOf("Staker") === -1) {
         labels.push("Staker");
       }
     } else if (transactionData.type == "swap") {
-      totalAmountTraded = totalAmountTraded + transactionData.value;
-      numberOfTraders = numberOfTraders + 1;
+      totalAmountTraded =
+        totalAmountTraded + (Number(transactionData.value) / 10 ** 18) * 1500;
+      numberOfTrades = numberOfTrades + 1;
       isTrader = true;
       if (labels.indexOf("Trader") === -1) {
         labels.push("Trader");
@@ -71,6 +76,8 @@ const getTransactionData = async (address, chain, chainId) => {
   let LPPools = [];
   let totalLPAmountProvided = 0;
   if (!lpData) {
+    isLPProvider = true;
+    numberOfLPPositions = lpData.positions.length;
     for (let i = 0; i < lpData.positions.length; i++) {
       let position = lpData.positions[i];
       totalLPAmountProvided = totalLPAmountProvided + position.pool_token.quote;
@@ -124,30 +131,34 @@ const getTransactionData = async (address, chain, chainId) => {
       allAccountBalanceInUSD = allAccountBalanceInUSD + item.quote;
     }
   }
-
+  const defiScore =
+    0.2 * (Number(isTrader) * totalAmountTraded * numberOfTrades) +
+    0.4 * (Number(isStaker) * totalAmountStaked * numberOfStakes) +
+    0.4 * (Number(isLPProvider) * totalLPAmountProvided * numberOfLPPositions);
   // Return result
   result[0] = {
     address: address,
-    totalAmountInUSD: allAccountBalanceInUSD,
-    defiScore: allAccountBalanceInUSD,
-    totalTrades: allAccountBalanceInUSD, // Change at the end
-    totalStakes: allAccountBalanceInUSD, // Change at the end
-    totalLP: totalLPAmountProvided,
-    numberOfNFT: allAccountBalanceInUSD,
-    totalNFTValue: allAccountBalanceInUSD,
+    balance: allAccountBalanceInUSD,
+    defiScore: defiScore,
+    totalTrades: numberOfTrades, // Change at the end
+    totalStakes: numberOfStakes, // Change at the end
+    totalLP: numberOfLPPositions,
+    numberOfNFT: numberOfNFTHoldings,
+    totalNFTValue: totalNFTUSD,
     labels: labels,
+    totalTransaction: numberOfTransactions,
   };
 
-  console.log(result);
-  return result;
+  console.log(result[0]);
+  return result[0];
   // console.log("Result: ", result);
 };
 
 const getTransactionDataWrapper = async (addressArray, chain, chainId) => {
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 10; i++) {
     let result = await getTransactionData(addressArray[i], chain, chainId);
     if (!result) continue;
-    result[0].id = i;
+    result.id = i;
     TableData.push(result);
   }
 
