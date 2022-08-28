@@ -22,7 +22,20 @@ const getTransactionData = async (address, chain, chainId) => {
 
   const data = await resp.json();
   // console.log(data);
-  let result = [{}];
+  let result = [
+    {
+      address: address,
+      balance: 0,
+      defiScore: 0,
+      totalTrades: 0, // Change at the end
+      totalStakes: 0, // Change at the end
+      totalLP: 0,
+      numberOfNFT: 0,
+      totalNFTValue: 0,
+      labels: [""],
+      totalTransaction: 0,
+    },
+  ];
   let totalAmountStaked = 0;
   let totalAmountTraded = 0;
   let isTrader = false;
@@ -34,7 +47,10 @@ const getTransactionData = async (address, chain, chainId) => {
   let numberOfLPPositions = 0;
   let stakingPlatforms = ["Aave"];
   let isLPProvider = false;
-  let numberOfTransactions = data.total_txs;
+  let numberOfTransactions =
+    typeof data.total_txns === "undefined" ? 0 : Number(data.total_txns);
+
+  if (!data) return result[0];
 
   for (let i = 0, j = 0; i < data.total_txs; i++) {
     const transactionData = data.transactions[i];
@@ -146,7 +162,7 @@ const getTransactionData = async (address, chain, chainId) => {
     numberOfNFT: numberOfNFTHoldings,
     totalNFTValue: totalNFTUSD,
     labels: labels,
-    totalTransaction: data.total_txs,
+    totalTransaction: numberOfTransactions,
   };
 
   console.log(result[0]);

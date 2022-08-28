@@ -17,7 +17,7 @@ const Table: FC<TableProps> = (props) => {
       totalLP: 0,
       numberOfNFT: 0,
       totalNFTValue: 0,
-      totalTranscation: 0,
+      totalTransaction: 0,
       labels: ["NFT", "Staker"],
     },
   ]);
@@ -150,7 +150,7 @@ const Table: FC<TableProps> = (props) => {
                 totalLp={ele.totalLP}
                 numberOfNFTs={ele.numberOfNFT}
                 totalNFTValue={ele.totalNFTValue}
-                totalTransaction={ele.totalTranscation}
+                totalTransaction={ele.totalTransaction}
                 labels={ele.labels}
               />
             );
