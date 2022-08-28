@@ -5,6 +5,13 @@ import fetchData from "../FetchData/FetchData";
 interface CardProps {}
 
 let fetchedData: any;
+let chain: string = "ethereum";
+let chainId: number = 1;
+
+const updateChain = (_chain: string, _chainId: number) => {
+  chain = _chain;
+  chainId = _chainId;
+};
 
 const Card: FC<CardProps> = (props) => {
   const [value, setValue] = useState("");
@@ -28,10 +35,11 @@ const Card: FC<CardProps> = (props) => {
             className="btn btn-outline-success"
             onClick={() => {
               fetchData(value, async (response: any) => {
+                console.log(chain, chainId);
                 const results = await getTransactionDataWrapper(
                   response,
-                  "matic",
-                  137
+                  chain,
+                  chainId
                 );
                 console.log(results);
               });
@@ -46,4 +54,4 @@ const Card: FC<CardProps> = (props) => {
 };
 
 export default Card;
-export { fetchedData };
+export { fetchedData, updateChain };

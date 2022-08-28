@@ -3,6 +3,7 @@ import "./NavBar.css";
 import NavSearch from "./NavSearch/NavSearch";
 import * as Func from "../FunctionCalls/FunctionCall";
 import sendNotification from "../Comm/Comm";
+import { updateChain } from "../Card/Card";
 
 interface NavbarProps {}
 
@@ -66,25 +67,34 @@ const NavBar: FC<NavbarProps> = (props) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown
+                Chains
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Action
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() => updateChain("ethereum", 1)}
+                  >
+                    Ethereum
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() => updateChain("matic", 137)}
+                  >
+                    Polygon
                   </a>
                 </li>
                 <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() => updateChain("solana", 139981149)}
+                  >
+                    Solana
                   </a>
                 </li>
               </ul>
