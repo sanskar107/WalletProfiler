@@ -11,7 +11,7 @@ const NavBar: FC<NavbarProps> = (props) => {
   const [ethAddr, setEthAddr] = useState("Login");
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-secondary bg-gradient rounded-3">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           Wallet Profiler
@@ -102,7 +102,7 @@ const NavBar: FC<NavbarProps> = (props) => {
           </ul>
           <div className="">
             <button
-              className="btn btn-outline-success me-3"
+              className="btn me-3 bg-success bg-gradient"
               onClick={() => {
                 Func.default((ethAddr: any) => {
                   setEthAddr(ethAddr);
@@ -112,7 +112,7 @@ const NavBar: FC<NavbarProps> = (props) => {
               {ethAddr}
             </button>
             <button
-              className="btn btn-outline-success"
+              className="btn bg-warning bg-gradient"
               onClick={() => {
                 Func.logOut(() => {
                   setEthAddr("Login");

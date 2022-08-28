@@ -194,7 +194,7 @@ const Table: FC<TableProps> = (props) => {
           total_lp += data[i].totalLP * avg_factor;
           num_nft += data[i].numberOfNFT * avg_factor;
           nft_val += data[i].totalNFTValue * avg_factor;
-          tot_trans += data[i].totalTranscation * avg_factor;
+          tot_trans += data[i].totalTransaction * avg_factor;
         }
 
         console.log("Average Balance : ", avg_bal);
