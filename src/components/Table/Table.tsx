@@ -24,6 +24,7 @@ const Table: FC<TableProps> = (props) => {
   const [newState, setNewState] = useState(true);
   const [prevState, setPrevState] = useState(false);
   return (
+    <div>
     <table className="table">
       <thead>
         <tr>
@@ -156,6 +157,42 @@ const Table: FC<TableProps> = (props) => {
           })}
       </tbody>
     </table>
+    <button type="button" className="btn btn-lg btn-danger"
+      onClick={() => {
+        var avg_bal = 0.0;
+        var defi_score = 0.0;
+        var total_trades = 0.0;
+        var total_stakes = 0.0;
+        var total_lp = 0.0;
+        var num_nft = 0.0;
+        var nft_val = 0.0;
+        var tot_trans = 0.0;
+        let avg_factor = 1.0 / data.length;
+        for(let i = 0; i < data.length; i++) {
+          avg_bal += data[i].balance * avg_factor;
+          defi_score += data[i].defiScore * avg_factor;
+          total_trades += data[i].totalTrades * avg_factor;
+          total_stakes += data[i].totalStakes * avg_factor;
+          total_lp += data[i].totalLP * avg_factor;
+          num_nft += data[i].numberOfNFT * avg_factor;
+          nft_val += data[i].totalNFTValue * avg_factor;
+          tot_trans += data[i].totalTranscation * avg_factor;
+        }
+
+        console.log("Average Balance : ", avg_bal);
+        console.log("Average defi score : ", defi_score);
+        console.log("Total Trades : ", total_trades);
+        console.log("Total Stakes : ", total_stakes);
+        console.log("Total LP : ", total_lp);
+        console.log("Number of NFTs : ", num_nft);
+        console.log("Total NFT Value : ", nft_val);
+        console.log("Total Transactions", tot_trans);
+      }
+      }
+      >
+      Get Insights</button>
+
+    </div>
   );
 };
 
