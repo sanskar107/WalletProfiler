@@ -73,7 +73,7 @@ const Table: FC<TableProps> = (props) => {
                   href="#"
                   onClick={() => {
                     let temp = data.filter((ele) => {
-                      return ele.labels.includes("NFT");
+                      return ele.labels.includes("NFT Hodler");
                     });
                     setData(temp);
                     setPrevState(!prevState);
@@ -89,7 +89,7 @@ const Table: FC<TableProps> = (props) => {
                   href="#"
                   onClick={() => {
                     let temp = data.filter((ele) => {
-                      return ele.labels.includes("Stake Hodler");
+                      return ele.labels.includes("Staker");
                     });
                     setData(temp);
                     setPrevState(!prevState);

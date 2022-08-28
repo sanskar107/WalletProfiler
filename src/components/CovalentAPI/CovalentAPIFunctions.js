@@ -146,7 +146,7 @@ const getTransactionData = async (address, chain, chainId) => {
     numberOfNFT: numberOfNFTHoldings,
     totalNFTValue: totalNFTUSD,
     labels: labels,
-    totalTransaction: numberOfTransactions,
+    totalTransaction: data.total_txs,
   };
 
   console.log(result[0]);
