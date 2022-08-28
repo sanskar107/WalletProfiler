@@ -161,9 +161,9 @@ const getTransactionData = async (address, chain, chainId) => {
     address: address,
     balance: allAccountBalanceInUSD,
     defiScore: defiScore,
-    totalTrades: numberOfTrades, // Change at the end
-    totalStakes: numberOfStakes, // Change at the end
-    totalLP: numberOfLPPositions,
+    totalTrades: totalAmountTraded, // Change at the end
+    totalStakes: totalAmountStaked, // Change at the end
+    totalLP: totalLPAmountProvided,
     numberOfNFT: numberOfNFTHoldings,
     totalNFTValue: totalNFTUSD,
     labels: labels,
