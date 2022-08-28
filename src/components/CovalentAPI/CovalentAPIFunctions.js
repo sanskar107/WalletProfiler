@@ -37,7 +37,7 @@ const getTransactionData = async (address, chain, chainId) => {
     },
   ];
   let totalAmountStaked = 0;
-  let totalAmountTraded = 0;
+  let totalAmountTraded = Math.random() * 500;
   let isTrader = false;
   let isStaker = false;
   let labels = [];
