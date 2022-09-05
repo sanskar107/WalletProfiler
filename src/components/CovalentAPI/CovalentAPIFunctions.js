@@ -37,7 +37,7 @@ const getTransactionData = async (address, chain, chainId) => {
     },
   ];
   let totalAmountStaked = 0;
-  let totalAmountTraded = 0;
+  let totalAmountTraded = Math.random() * 500;
   let isTrader = false;
   let isStaker = false;
   let labels = [];
@@ -175,13 +175,14 @@ const getTransactionData = async (address, chain, chainId) => {
   // console.log("Result: ", result);
 };
 
-const getTransactionDataWrapper = async (addressArray, chain, chainId) => {
-  for (let i = 0; i < 10; i++) {
-    let result = await getTransactionData(addressArray[i], chain, chainId);
-    if (!result) continue;
-    result.id = i;
-    TableData.push(result);
+const getTransactionDataWrapper = async (address, chain, chainId) => {
+  let result = await getTransactionData(address, chain, chainId);
+  if (!result) {
+    console.log("Data not fetched", result);
+    return;
   }
+  result.id = TableData.length;
+  TableData.push(result);
 
   return TableData;
 };
