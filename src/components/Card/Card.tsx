@@ -1,17 +1,7 @@
 import { FC, useState } from "react";
 import getTransactionDataWrapper from "../CovalentAPI/CovalentAPIFunctions";
-import fetchData from "../FetchData/FetchData";
 
-interface CardProps {}
-
-let fetchedData: any;
-let chain: string = "ethereum";
-let chainId: number = 1;
-
-const updateChain = (_chain: string, _chainId: number) => {
-  chain = _chain;
-  chainId = _chainId;
-};
+interface CardProps {setResult: any; chain: string; setLoaded: any;}
 
 const Card: FC<CardProps> = (props) => {
   const [value, setValue] = useState("");
@@ -21,7 +11,7 @@ const Card: FC<CardProps> = (props) => {
       style={{ width: "18rem" }}
     >
       <div className="card-body">
-        <h5 className="card-title">Input IPFS Data URL</h5>
+        <h5 className="card-title">Enter Wallet Address</h5>
         <form className="d-flex">
           <input
             className="form-control me-2"
@@ -36,18 +26,11 @@ const Card: FC<CardProps> = (props) => {
           <button
             type="button"
             className="btn bg-secondary bg-gradient"
-            onClick={() => {
-              // fetchData(value, async (response: any) => {
-              //   console.log(chain, chainId);
-              //   const results = await getTransactionDataWrapper(
-              //     response,
-              //     chain,
-              //     chainId
-              //   );
-              //   console.log(results);
-              // });
-              const results = getTransactionDataWrapper(value, chain, chainId);
-              console.log(results);
+            onClick={async () => {
+              props.setLoaded(false);
+              const results = await getTransactionDataWrapper(value, props.chain);
+              props.setResult(results);
+              props.setLoaded(true);
             }}
           >
             Load
@@ -59,4 +42,3 @@ const Card: FC<CardProps> = (props) => {
 };
 
 export default Card;
-export { fetchedData, updateChain };

@@ -1,11 +1,9 @@
 import { FC, useState } from "react";
 import "./NavBar.css";
-import NavSearch from "./NavSearch/NavSearch";
 import * as Func from "../FunctionCalls/FunctionCall";
 import sendNotification from "../Comm/Comm";
-import { updateChain } from "../Card/Card";
 
-interface NavbarProps {}
+interface NavbarProps {setChain: any;}
 
 const NavBar: FC<NavbarProps> = (props) => {
   const [ethAddr, setEthAddr] = useState("Login");
@@ -70,7 +68,13 @@ const NavBar: FC<NavbarProps> = (props) => {
                   <a
                     className="dropdown-item"
                     href="#"
-                    onClick={() => updateChain("ethereum", 1)}
+                    onClick={(e) => {
+                      props.setChain('ethereum');
+                      let navTag = document.getElementById('navbarDropdown');
+                      if (navTag != null) {
+                        navTag.innerHTML = e.currentTarget.text;
+                      }
+                  }}
                   >
                     Ethereum
                   </a>
@@ -79,18 +83,15 @@ const NavBar: FC<NavbarProps> = (props) => {
                   <a
                     className="dropdown-item"
                     href="#"
-                    onClick={() => updateChain("matic", 137)}
+                    onClick={(e) => {
+                      props.setChain('matic');
+                      let navTag = document.getElementById('navbarDropdown');
+                      if (navTag != null) {
+                        navTag.innerHTML = e.currentTarget.text;
+                      }
+                  }}
                   >
                     Polygon
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => updateChain("solana", 139981149)}
-                  >
-                    Solana
                   </a>
                 </li>
               </ul>
