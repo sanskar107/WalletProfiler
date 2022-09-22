@@ -3,15 +3,6 @@
 import { Alchemy, Network } from "alchemy-sdk";
 
 // Alchemy Data
-//const alchemyAPI = '8UEf9m9JCbBGprR7fcph5g5tZqhNPQ2f';
-//const alchemyBaseURL = `https://eth-mainnet.g.alchemy.com/v2/${alchemyAPI}`;
-// let chainCurrencyTokenSymbol = 'ETH';
-// let network = Network.ETH_MAINNET;
-// let chainName = 'ethereum';
-
-// let chainCurrencyTokenSymbol = 'MATIC';
-// let network = Network.MATIC_MAINNET;
-// let chainName = 'matic';
 let chainCurrencyTokenSymbol;
 let chain;
 let alchemy;
@@ -40,7 +31,6 @@ const getERC20TokenData = async (address) => {
   const nonZeroBalances = balances.tokenBalances.filter((token) => {
     return token.tokenBalance !== '0x0000000000000000000000000000000000000000000000000000000000000000';
   });
-  //console.log(`Token balances of ${address} \n`);
   let i = 0;
   let tokenData = [];
   let totalTokenBalanceInUSD = 0;
@@ -131,8 +121,6 @@ const getDeFiData = async (address) => {
     if (!transactionData) {
       continue;
     }
-    //console.log(transactionData.type);
-    //console.log(transactionData.description);
     // contract_execution, approve, Mint, send, receive
     if (transactionData.type == "stake" || transactionData.type == "unstake") {
       numberOfStakes++;
@@ -211,15 +199,6 @@ const getTransactionData = async (address) => {
   if (ERC721Tokens.length > 0 || ERC1155Tokens.length > 0) {
     deFiData.labels.push('NFT Hodler');
   }
-
-  // const chain = "ethereum";
-  // const address = '0x345d8e3a1f62ee6b1d483890976fd66168e390f2';
-  /* 0xc1e42f862d202b4a0ed552c1145735ee088f6ccf has $93,949 in uniswap LP
-
-0x471c6a1f283d2b52ff332b9706ffa6ca4f261479 has $116,589,004 in uniswap LP
-
-0x1b04d574d4a3d57fb724848937a926aa21c59271 has $13,742,147 in uniswap L
-*/
 console.log("\nFinal Result:\n");
   let result = {
     address: address,
@@ -265,59 +244,3 @@ alchemy = new Alchemy(config);
 };
 
 export default getTransactionDataWrapper;
-
-// const getNFTTokenData = async (address) => {
-  //   // Get number of NFT minted to a address from alchemy 0xE0Def774872ED742e03cEB51759AB9a5a9a9A496
-  //   const res = await alchemy.core.getAssetTransfers({
-  //     fromBlock: "0x0",
-  //     fromAddress: address,
-  //     excludeZeroValue: true,
-  //     category: ["erc721", "erc1155"],
-  //   });
-  
-  //   // Print contract address and tokenId for each NFT (ERC721 or ERC1155):
-  //   let ERC721Tokens = [];
-  //   let ERC1155Tokens = [];
-  //   let ERC721ContractAddressesToTokenCount = new Map();
-  //   let ERC1155ContractAddressesToTokenCount = new Map();
-  //   let i = 0;
-  //   let j = 0;
-  //   for (const events of res.transfers) {
-  //     if (events.asset !== null) {
-  //       let NFTContractAddress = events.rawContract.address;
-  //       if (events.erc1155Metadata == null) {
-  //         if (!ERC721ContractAddressesToTokenCount.has(NFTContractAddress)) {
-  //           const nftFloorPriceData = await getNFTContractFloorPrice(NFTContractAddress);
-  //           ERC721ContractAddressesToTokenCount.set(NFTContractAddress, 1);
-  //           ERC721Tokens[i++] = { NFTContractAddress: NFTContractAddress, NFTCollectionName: events.asset, NFTFloorPriceData: nftFloorPriceData };
-  //         } else {
-  //           ERC721ContractAddressesToTokenCount.set(NFTContractAddress, ERC721ContractAddressesToTokenCount.get(NFTContractAddress) + 1);
-  //         }
-  //       } else {
-  //         for (const erc1155 of events.erc1155Metadata) {
-  //           if (!ERC1155ContractAddressesToTokenCount.has(NFTContractAddress)) {
-  //             const nftFloorPriceData = await getNFTContractFloorPrice(NFTContractAddress);
-  //             ERC1155ContractAddressesToTokenCount.set(NFTContractAddress, 1);
-  //             ERC1155Tokens[j++] = { NFTContractAddress: NFTContractAddress, NFTCollectionName: events.asset, NFTFloorPriceData: nftFloorPriceData };
-  //           } else {
-  //             ERC1155ContractAddressesToTokenCount.set(NFTContractAddress, ERC1155ContractAddressesToTokenCount.get(NFTContractAddress) + 1);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  
-  //   for (let token of ERC721Tokens) {
-  //     token.totalNFTTokens = ERC721ContractAddressesToTokenCount.get(token.NFTContractAddress);
-  //     token.approxTotalNFTHoldingValueOpenSeaInETH = token.totalNFTTokens * token.NFTFloorPriceData.openSea.floorPrice;
-  //     token.approxTotalNFTHoldingValuelooksRareInETH = token.totalNFTTokens * token.NFTFloorPriceData.looksRare.floorPrice;
-  //   }
-  //   for (let token of ERC1155Tokens) {
-  //     token.totalNFTTokens = ERC1155ContractAddressesToTokenCount.get(token.NFTContractAddress);
-  //     token.approxTotalNFTHoldingValueOpenSeaInETH = token.totalNFTTokens * token.NFTFloorPriceData.openSea.floorPrice;
-  //     token.approxTotalNFTHoldingValuelooksRareInETH = token.totalNFTTokens * token.NFTFloorPriceData.looksRare.floorPrice;
-  //   }
-  
-  //   return { ERC721Tokens, ERC1155Tokens };
-  // };
-  
